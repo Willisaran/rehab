@@ -1,0 +1,73 @@
+{% extends 'admin-base.html' %}
+
+
+{% load static %}
+
+{% block title %}{{request.user.username}}'s Profile | E-Rehab site{% endblock %}
+
+{% block content %}
+
+
+<div class="justify-content-center mt-4">
+    <div class="container p-4" style='width:60%'>
+        <div class="card">
+            <div class="card-header">
+                <h1>Your Profile Pane</h1>
+            </div>
+            <div class="card-body">
+                <form action="{% url 'mainApp:profile' user.id %}" method="post" class="form form-group">
+                    {% for error in form.errors %}
+                        <span class="message">{{ error }}</span>
+                    {% endfor %}
+                    {% csrf_token %}
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <tr>
+                                        <td>
+                                            Doctors Names</td>
+                                            <td>{{form.first_name}} 
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            {{form.email.label}}</td>
+                                            <td>{{form.email}}       
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Doctor Reference No.</td>
+                                            <td>{{form.username}} 
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            {{form.password1.label}}</td>
+                                            <td>{{form.password1}} 
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            {{form.password2.label}}</td>
+                                            <td>{{form.password2}} 
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-footer">
+                        <button class='btn btn-primary p-2'>Update Profile</button> 
+                        <a class='btn btn-danger p-2' href='{% url "doctor:doctorLogout" %}'> Logout</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
